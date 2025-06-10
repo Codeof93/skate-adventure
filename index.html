@@ -33,6 +33,8 @@
       top: 200px;
       left: 275px;
       z-index: 10;
+      /* Optional border for debugging */
+      /* border: 1px solid red; */
     }
   </style>
 </head>
@@ -47,11 +49,17 @@
   const game = document.getElementById("game");
   const step = 10;
 
+  // Initialize position explicitly (match CSS)
   let pos = {
-    top: parseInt(player.style.top, 10),
-    left: parseInt(player.style.left, 10)
+    top: 200,
+    left: 275
   };
 
+  // Apply initial position
+  player.style.top = pos.top + "px";
+  player.style.left = pos.left + "px";
+
+  // Listen for arrow key presses
   document.addEventListener("keydown", (e) => {
     switch (e.key) {
       case "ArrowUp":
