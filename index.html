@@ -1,42 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Webster Map Game - Skater Edition</title>
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    #game {
-      position: relative;
-      width: 600px;
-      height: 450px;
-      background: url('webster-map.png') no-repeat center center;
-      background-size: cover;
-      border: 4px solid #666;
-      box-sizing: border-box;
-    }
-
-    #player {
-      position: absolute;
-      width: 45px;
-      height: 65px;
-      background: url('skater-guy.png') no-repeat center center;
-      background-size: contain;
-      top: 200px;
-      left: 275px;
-      z-index: 10;
-      /* Optional border for debugging */
-      /* border: 1px solid red; */
-    }
-  </style>
+<meta charset="UTF-8" />
+<title>Skater Movement Test</title>
+<style>
+  #game {
+    position: relative;
+    width: 600px;
+    height: 450px;
+    background: url('webster-map.png') no-repeat center center;
+    background-size: cover;
+    border: 2px solid black;
+    margin: 20px auto;
+  }
+  #player {
+    position: absolute;
+    width: 45px;
+    height: 65px;
+    background: url('skater-guy.png') no-repeat center center;
+    background-size: contain;
+    top: 200px;
+    left: 275px;
+    z-index: 10;
+  }
+</style>
 </head>
 <body>
 
@@ -45,38 +32,43 @@
 </div>
 
 <script>
-  const player = document.getElementById("player");
-  const game = document.getElementById("game");
+  const player = document.getElementById('player');
+  const game = document.getElementById('game');
   const step = 10;
 
-  // Initialize position explicitly (match CSS)
-  let pos = {
-    top: 200,
-    left: 275
-  };
+  // Set initial position explicitly
+  let topPos = 200;
+  let leftPos = 275;
 
   // Apply initial position
-  player.style.top = pos.top + "px";
-  player.style.left = pos.left + "px";
+  player.style.top = topPos + 'px';
+  player.style.left = leftPos + 'px';
 
-  // Listen for arrow key presses
-  document.addEventListener("keydown", (e) => {
-    switch (e.key) {
-      case "ArrowUp":
-        if (pos.top - step >= 0) pos.top -= step;
+  // Debug: log keypresses and positions
+  document.addEventListener('keydown', function(event) {
+    console.log('Key pressed:', event.key);
+
+    switch (event.key) {
+      case 'ArrowUp':
+        if (topPos - step >= 0) topPos -= step;
         break;
-      case "ArrowDown":
-        if (pos.top + step <= game.clientHeight - player.clientHeight) pos.top += step;
+      case 'ArrowDown':
+        if (topPos + step <= game.clientHeight - player.clientHeight) topPos += step;
         break;
-      case "ArrowLeft":
-        if (pos.left - step >= 0) pos.left -= step;
+      case 'ArrowLeft':
+        if (leftPos - step >= 0) leftPos -= step;
         break;
-      case "ArrowRight":
-        if (pos.left + step <= game.clientWidth - player.clientWidth) pos.left += step;
+      case 'ArrowRight':
+        if (leftPos + step <= game.clientWidth - player.clientWidth) leftPos += step;
         break;
+      default:
+        return; // ignore other keys
     }
-    player.style.top = pos.top + "px";
-    player.style.left = pos.left + "px";
+
+    player.style.top = topPos + 'px';
+    player.style.left = leftPos + 'px';
+
+    console.log(`Moved to top: ${topPos}px, left: ${leftPos}px`);
   });
 </script>
 
