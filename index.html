@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Webster Map Game - Embedded Skater</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #game {
+      position: relative;
+      width: 600px;
+      height: 450px;
+      background: url('webster-map.png') no-repeat center center;
+      background-size: cover;
+      border: 4px solid #666;
+      box-sizing: border-box;
+    }
+
+    #player {
+      position: absolute;
+      width: 45px;
+      height: 33px;
+      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAlCAYAAACdZ5nNAAAAAXNSR0IArs4c6QAAAUFJREFUWEdjZEACcH7//z8DA4O5XMHN5MiAazvLOyxP39T35//+nLTvX/m1MEAGAV7h06eNK44eP/owJly+f/hYoYxO0dOjQfs2bNz6Dmf6/fvwQkx8/GZqYmDB8+/K/g+fPnL//37x/+/v7+T1DdULt27fxAKJ//+gYOHJhJ7Vzj//j179vA/gPmzZ0cjx44dE69bt87/G9kPHTp0qNxcXIwZMmSgU+6Uvv37N1atXz49du3b9NxAKZRmZuYs+vTpP/v27dPv379/hweHh1Oh0gFRQUQJeWFmhZsa3Ra7Np06aFBgYGZOBK1a9c+fvz4IC8vD+zevXtz1apVuzk+p3AZDE2bNiwfPnyJUMbGxtSkEqkpqYmKlOnjsnNzeUPHz7s64eOHQutWrXyqVLl27Nz5s3r+XLl6txcXGfv3v2DMHTo0DjaDnkNefv27WrQoEHg4uLiiYGBgR+Xh4cEjBgywYcMGtWXLFr3s2LGxfPny3adPn+bQoUNeUlKSmZiYcPDgQVVVV/bt06aKysrLc3Nzs3LlzY+7cuenZs2e32bNnKzU1Nfr27avFxcWZmJiY3LhxY9++fbN///6lsrJSGBgYMAwZMmTKJ0gAACNYF5+kiA1IAAAAASUVORK5CYII=') no-repeat center center;
+      background-size: contain;
+      top: 209px;
+      left: 284px;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+
+<div id="game">
+  <div id="player"></div>
+</div>
+
+<script>
+  const player = document.getElementById("player");
+  const game = document.getElementById("game");
+  const step = 10;
+
+  let pos = {
+    top: parseInt(player.style.top, 10),
+    left: parseInt(player.style.left, 10)
+  };
+
+  document.addEventListener("keydown", (e) => {
+    switch (e.key) {
+      case "ArrowUp":
+        if (pos.top - step >= 0) pos.top -= step;
+        break;
+      case "ArrowDown":
+        if (pos.top + step <= game.clientHeight - player.clientHeight) pos.top += step;
+        break;
+      case "ArrowLeft":
+        if (pos.left - step >= 0) pos.left -= step;
+        break;
+      case "ArrowRight":
+        if (pos.left + step <= game.clientWidth - player.clientWidth) pos.left += step;
+        break;
+    }
+    player.style.top = pos.top + "px";
+    player.style.left = pos.left + "px";
+  });
+</script>
+
+</body>
+</html>
